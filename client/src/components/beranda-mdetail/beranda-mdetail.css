@@ -1,0 +1,11 @@
+.carousel-inner{
+    height: 100%;
+}
+
+.carousel-control-prev-icon{
+    color: red !important;
+}
+
+.carousel{
+    color: red;
+}
