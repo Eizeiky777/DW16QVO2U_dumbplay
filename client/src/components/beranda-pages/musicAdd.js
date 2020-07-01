@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Row, Col, Container, Button } from 'react-bootstrap';
+import Header from './beranda-pages-header';
 import { connect } from "react-redux";
 import { addMusics } from "../redux/actions/musics";
 
@@ -38,6 +39,7 @@ class MusicAdd extends Component {
 
         return(
             <>
+                <Header />
                 <div className="bg-dark" style={{height: "100vh", width: "100%"}}>
                     <div style={{height: 80, background: "#1F1F1F"}}></div>
                     <Container className="text-white  " style={{width: 900, marginTop: 40, fontSize: 24, fontWeight: 500  }}>Add Music</Container>
@@ -48,7 +50,7 @@ class MusicAdd extends Component {
                                 <Form onSubmit={this.handleSubmit}>
                                     <Form.Group controlId="exampleForm.ControlInput11" className="d-inline-flex">
                                         <Form.Control
-                                            style={{width: 700}}
+                                            style={{width: 680, marginRight: 5}}
                                             type="text"
                                             name="title" 
                                             placeholder="Title"
@@ -56,7 +58,12 @@ class MusicAdd extends Component {
                                             onChange={this.handleChange}
                                         />
                                         <Form.Control
-                                            style={{paddingTop: 5, width: "15%", paddingLeft: 20}}
+                                            style={{width: "17%"}}
+                                            type="text"
+                                            placeholder="Thumbnail"
+                                        />
+                                        <Form.Control
+                                            style={{paddingTop: 5, width: "15%", right: 13, position: "absolute", zIndex: 999, opacity: 0}}
                                             type="file" 
                                             name="thumbnail"
                                             placeholder="Attach Thumbnail"
@@ -83,12 +90,14 @@ class MusicAdd extends Component {
                                             <option value="3">Aimer</option>
                                         </Form.Control>
                                     </Form.Group>
-                                    <Form.Group controlId="exampleForm.ControlInput4">
+                                    <Form.Group controlId="exampleForm.ControlInput3">
                                         <Form.Control
-                                            style={{width: "15%"}}
-                                            type="file" 
+                                            style={{width: "17%"}}
+                                            type="text" 
                                             name="attach"
                                             placeholder="Attach Sound"
+                                            value={data.attach ? data.attach : ""}
+                                            onChange={this.handleChange}
                                         />
                                     </Form.Group>
                                     <div  className="text-center">

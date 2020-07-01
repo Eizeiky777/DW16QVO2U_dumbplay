@@ -2,11 +2,13 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 // import rootReducer from "../reducers";
 // import counterReducer from "../reducers/counter";
 import authReducer from "../reducers/auth";
+import loginDetailReducer from "../reducers/loginDetail";
 import userReducer from "../reducers/user";
 
 import musicReducer from "../reducers/musics";
 import transactionReducer from "../reducers/transactions";
 import listTransactionReducer from "../reducers/listTransactions";
+import updateTransactionReducer from "../reducers/updateTransaction";
 
 import addArtistReducer from "../reducers/artist";
 
@@ -21,6 +23,8 @@ const reducers = combineReducers({
     artist: addArtistReducer,
     transaction: transactionReducer,
     listTransaction: listTransactionReducer,
+    updateTransaction : updateTransactionReducer,
+    loginDetail: loginDetailReducer
 
 });
 

@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import App from './App';
+//import App from './App';
 import Header from './components/beranda/header';
-import Detail from './components/beranda-mdetail/detail';
 import ArtistAdd from './components/beranda-pages/artistAdd';
 import ListTransactions from './components/beranda-pages/transactionsList';
 import transactionUser from './components/beranda-pages/transactionUser';
@@ -21,9 +20,16 @@ class Final extends Component {
     constructor(){
       super()
       this.state = {
-          unlock: localStorage.getItem('token') !== null ? true : false 
+          unlock: localStorage.getItem('role') === 'admin' ? true : false,
+          unlockUser: localStorage.getItem('role') === 'user' ? true : false,
+          open: false,
       }
   }
+
+    setOpen = () => {
+      // console.log('passed the index street')
+      this.setState({open: true})
+    }
 
     render(){  
         
@@ -32,34 +38,34 @@ class Final extends Component {
         <Provider store={store}>
           <div>
               <Router>
-                <Header />
-              <Switch>
-                <Route exact path="/" component={App} />
-                  <PrivateRoute
-                    path="/detail/:id/:genre/:status"
-                    component={Detail}
-                    isLogin={this.state.unlock}
-                  />
-                  <PrivateRoute
-                    path="/add_artist"
-                    component={ArtistAdd}
-                    isLogin={this.state.unlock}
-                  />
-                  <PrivateRoute
-                    path="/transactions"
-                    component={ListTransactions}
-                    isLogin={this.state.unlock}
-                  />
-                  <PrivateRoute
-                    path="/transaction_user"
-                    component={transactionUser}
-                    isLogin={this.state.unlock}
-                  />
-                  <PrivateRoute
-                    path="/add_music"
-                    component={MusicAdd}
-                    isLogin={this.state.unlock}
-                  />
+                {/* <Header setOpen={this.setOpen}  /> */}
+                <Switch>
+                    {/* {
+                      logs ? (<Route path="/" component={Logged}/>) : ( <Route exact path="/" render={(props) => <App {...props} isAuthed={true} handle={handleLogin}  />} /> )
+                    } */}
+                    {/* <Route exact path="/" render={(props) => <App {...props} open={this.state.open}/>} /> */}
+                    <Route exact path="/" render={(props) => <Header {...props} setOpen={this.setOpen}/>} />
+                    <PrivateRoute
+                      path="/add_artist"
+                      component={ArtistAdd}
+                      isLogin={this.state.unlock}
+                    />
+                    <PrivateRoute
+                      path="/transactions"
+                      component={ListTransactions}
+                      isLogin={this.state.unlock}
+                    />
+                    <PrivateRoute
+                      path="/transaction_user"
+                      component={transactionUser}
+                      isLogin={this.state.unlockUser}
+                    />
+                    <PrivateRoute
+                      path="/add_music"
+                      component={MusicAdd}
+                      isLogin={this.state.unlock}
+                    />
+                  
               </Switch>
             </Router>
           </div>

@@ -34,13 +34,8 @@ const {
 //////////////////////////////// MUSIC BRO ////////////////////////////
 const {
   read: checkMusics,
-  readKedua: checkFilmsX,
-  readKetiga: checkFilmsY,
   create: addMusic,
-  readOne: detailMusic,
-  readMore: fullDetailFilm,
-  updateOne: updateFilm,
-  delete: deleteFilm
+  update: updateMusic
 } = require("../controllers/music");
 
 //////////////////////////////// USER BRO ////////////////////////////
@@ -58,7 +53,7 @@ const {
   create: addTransaction,
   readOne: findTransaction,
   readMore: findTransactionMany,
-  updateOne: updateTransaction,
+  update: updateTransaction,
   delete: deleteTransaction
 } = require("../controllers/transaction");
 
@@ -74,20 +69,21 @@ router.delete("/users/delete/:id_user", authMaster007, deleteUser);
 
 // Music
 router.get("/musics", checkMusics);
-router.get("/musics/:idMusic", detailMusic);
-router.post("/musics/add",[ upload.single('thumbnail')], addMusic);
+//router.get("/musics/detail/:idMusic", detailMusic);
+router.post("/musics/add", [upload.single('thumbnail')], addMusic);
+router.patch("/musics/edit/:idMusic", [upload.single('thumbnail')], updateMusic);
 
 // Artist
 router.get("/artists", checkArtists);
 router.post("/artists/find/:idArtist", findArtist);
-router.post("/artists/add", addArtist);
+router.post("/artists/add",authMaster007, addArtist);
 
 // Transaction
 router.get("/transactions", checkTransaction);
 router.get("/transaction/:idTransaction", findTransaction);
 router.get("/transaction/listedUserId/:userId", findTransactionMany);
-router.post("/transaction/add", [upload.single('attach')] , addTransaction);
-router.patch("/transaction/edit/:idTransaction", [ upload.single('attach') ], updateTransaction);
+router.post("/transaction/add", auth, [upload.single('attach')] , addTransaction);
+router.patch("/transaction/edit/:idTransaction", [upload.single('attach')], updateTransaction);
 router.delete("/transaction/delete/:idTransaction", deleteTransaction);
 
 

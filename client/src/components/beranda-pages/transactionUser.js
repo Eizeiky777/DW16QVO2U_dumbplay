@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
-
+import Header from './beranda-pages-header';
 import { connect } from "react-redux";
 import { postTransaction } from "../redux/actions/transactions";
 
@@ -31,11 +31,16 @@ class TransactionUser extends Component {
 
         // let pos = status === "admin" ? true : false;
         const { data: userTransaction } = this.props.transaction;
+        let msg = false;
         if (!(Object.keys(userTransaction).length === 0 && userTransaction.constructor === Object)){
             console.log(userTransaction);
+            msg = true;
         }
+        // const { data: dataUsers, loading, error } = this.props.user;
 
         return (
+            <>
+            <Header />
             <div style={{ height: "100vh", paddingTop: 100, background: "#161616"}}>
                     <div className="text-white text-center">
                         <div className="pt-5 pb-4">
@@ -49,6 +54,7 @@ class TransactionUser extends Component {
                             <Container>
                                 <Row>
                                     <Col xs={12} md={12}>
+                                    { msg && (<p style={{color: 'green'}}>transaction success</p>) }
                                     <Form style={{width:"400px", margin:"auto"}} className="pb-5" onSubmit={this.handleSubmit} >
                                         <Form.Group controlId="formBasicNumber">
                                             <Form.Control 
@@ -72,6 +78,7 @@ class TransactionUser extends Component {
                         </div>
                     </div>
                 </div>
+                </>
         )
         
     }

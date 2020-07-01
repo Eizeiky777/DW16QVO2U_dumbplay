@@ -1,17 +1,21 @@
 import React, { Component, useState } from 'react';
+import App from '../../App';
+
 import { Nav, Navbar, Button, Form, Image, Modal, Dropdown, DropdownButton } from 'react-bootstrap';
 import logoImage from './data/DUMBSOUND.png';
+import photoProfile from "./data/user_photo.png";
 
 import { connect } from "react-redux";
 import { register, login } from "../redux/actions/auth";
-import photoProfile from "./data/user_photo.png";
+import { getLoginDetail } from "../redux/actions/loginDetail";
 
 
+//import { useHistory } from "react-router-dom";
+// import {  Link } from 'react-router-dom';
 
-const LoginUser = ({  onHide, show, login, auth }) => {
-
+const LoginUser = ({  onHide, show, login, setOpen }) => {
+    //let history = useHistory();
     const [datas, setData] = useState({});
-
     const handleChange = (event) => {
         // console.log(event.target.name)
         setData({ ...datas, [event.target.name]: event.target.value })
@@ -19,9 +23,10 @@ const LoginUser = ({  onHide, show, login, auth }) => {
     
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(datas);
+        // console.log(datas);
         login(datas);
         setData({});
+        setOpen();
     };
 
     return (
@@ -162,6 +167,7 @@ const Registered = ({  onHide, show, register, auth:{ data: authLog} }) => {
                             name="gender"
                             onChange={handleChange}
                             >
+                        <option>Gender</option>
                         <option>male</option>
                         <option>female</option>
                         </Form.Control>
@@ -214,16 +220,25 @@ class Header extends Component {
             modalShow: false, modalRegister: false
         }
     }
+    
 
     render(){   
-
         const { modalShow, modalRegister } = this.state;
-        
+        const { data: dataLogger } = this.props.auth;
+        if (!(Object.keys(dataLogger).length === 0 && dataLogger.constructor === Object)){
+            // console.log(dataLogger)
+        }
+
+        const statusLogger = Object.values(dataLogger);
+        let subscribe = statusLogger[7] === true ? true : false;
+        // console.log(statusLogger)
+    
         let token = localStorage.getItem('token');
         let stat =  localStorage.getItem('role');
         let unlock = token !== null ? true : false;
         
-        let open = stat === "admin" ? true : false;
+        let open = stat === "admin" || subscribe ? true : false;
+
 
         return (
         <>
@@ -249,7 +264,7 @@ class Header extends Component {
                         variant="transparent"
                         >
 
-                            { !open ? (<Dropdown.Item eventKey="2" href={"/transaction_user"}> <i className='fas fa-money-check-alt pr-2'></i>Pay</Dropdown.Item> ) :
+                            { stat === 'user' ? (<Dropdown.Item eventKey="2" href={"/transaction_user"}> <i className='fas fa-money-check-alt pr-2'></i>Pay</Dropdown.Item> ) :
                                     (<>
                                         <Dropdown.Item eventKey="2" href={"/transactions"}> <i className='fas fa-chalkboard-teacher pr-1'></i> Admin</Dropdown.Item>
                                         <Dropdown.Item eventKey="3" href={"/add_music"}> <i className='fas fa-file-audio' style={{width: 20}}></i> Add Music </Dropdown.Item>
@@ -274,11 +289,18 @@ class Header extends Component {
             </Navbar.Collapse>
             </Navbar>
 
+            <App 
+                open={open}  
+                login={() => this.setState({modalShow:true})}                  
+            />
+            
+
             <LoginUser
                 show={modalShow}
                 onHide={() => this.setState({modalShow: false})}
                 login={this.props.login}
                 auth={this.props.auth}
+                setOpen={this.props.setOpen}
             />
 
             <Registered
@@ -299,9 +321,10 @@ const dumbFlix = {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        loginDetail: state.loginDetail
     };
 };
 
-export default connect(mapStateToProps, { register, login })(Header);
+export default connect(mapStateToProps, { register, login, getLoginDetail })(Header);
 

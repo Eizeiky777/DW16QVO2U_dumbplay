@@ -5,10 +5,12 @@ export const DATA_LOADED = "DATA_LOADED";
 
 export const REGISTER = "REGISTER";
 export const LOGIN = "LOGIN";
+export const LOGINDETAIL = "LOGINDETAIL";
 export const USER = "USER";
 
 export const TRANSACTION = "TRANSACTION";
 export const LISTTRANSACTION = "LISTTRANSACTION";
+export const UPDATETRANSACTION = "UPDATETRANSACTION";
 
 export const MUSICS = "MUSICS";
 export const ADDMUSICS = "ADDMUSICS";

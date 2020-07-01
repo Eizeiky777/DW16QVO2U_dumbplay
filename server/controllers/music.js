@@ -157,8 +157,8 @@ try {
 }
 };
 
-// PATCH / Update Music
-exports.updateOne = async (req, res) => {
+/////////////////////////////// UPDATE ////////////////////////////////////////
+exports.update = async (req, res) => {
     try {
         const { idMusic } = req.params;
         const userX = await Music.findOne({

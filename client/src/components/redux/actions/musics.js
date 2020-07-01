@@ -23,21 +23,22 @@ export const getMusics = () => {
     };
 };
 
-export const addMusics = (file) => {
+export const addMusics = (e) => {
     return {
         type: ADDMUSICS,
         payload: async () => {
         try {
             setAuthToken( localStorage.getItem("token") );
-            const { title, thumbnail, year, artistId } = file;
+            const { title, thumbnail, year, artistId, attach } = e;
 
             const formData = new FormData();
             formData.append("title", title);
-            formData.append("thumbmnail",thumbnail);
             formData.append("year", year);
+            formData.append("thumbnail",thumbnail);
+            formData.append("attach", attach);
             formData.append("artistId", artistId);
-            // formData.append("attach", attach);
-
+            console.log(e)
+            
             const config = {
                 headers: {
                     "content-type": "multipart/form-data",

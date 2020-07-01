@@ -30,7 +30,6 @@ try {
     console.log(error);
 }
 };
-
 exports.readMore = async (req, res) => {
     try {
         const { userId } = req.params;
@@ -59,9 +58,7 @@ exports.readMore = async (req, res) => {
         console.log(error);
     }
     };
-
 ///////////////////////////////////////////////////////////////////////////////////////
-
 exports.create = async (req, res) => {
 
 
@@ -99,9 +96,7 @@ exports.create = async (req, res) => {
     //     }
     // });
 }
-
 //////////////////////////////////////////////////////////////////////////////////////
-
 // Detail Transaction
 exports.readOne = async (req, res) => {
 try {
@@ -126,9 +121,8 @@ try {
     console.log(error);
 }
 };
-
 // PATCH / Update Transaction
-exports.updateOne = async (req, res) => {
+exports.update = async (req, res) => {
     try {
         const { idTransaction } = req.params;
         const userX = await Transaction.findOne({
@@ -155,7 +149,7 @@ exports.updateOne = async (req, res) => {
         userX.dueDate = req.body.dueDate;
         userX.userId = req.body.userId;
         userX.status = req.body.status;
-        userX.attache = req.file === undefined ? "" : req.file.filename;
+        userX.attach = req.body.attach;
 
         const userSubscribe = await User.findOne({
             where: {
@@ -182,7 +176,7 @@ exports.updateOne = async (req, res) => {
             include: {
                 model: User,
                 attributes: {
-                    exclude: ["createdAt","updatedAt","userId"]
+                    exclude: ["createdAt","updatedAt","userId","password"]
                 },
             },
             attributes: {
@@ -195,8 +189,6 @@ exports.updateOne = async (req, res) => {
         console.log(error);
     }
     };
-
-
 // DELETE FILM
 exports.delete = async (req, res) => {
 try {
