@@ -16,6 +16,10 @@ class MusicList extends Component {
         // console.log(dataMusic);
         const musicX = Object.values(dataMusic);
 
+        let subscribePending = this.props.opens.length === 0 ? false : true;
+        //console.log(this.props.opens)
+        subscribePending  =  localStorage.getItem('role') === null ? false : true;
+
         return (
             <div style={divPembungkus}>
                 
@@ -32,9 +36,15 @@ class MusicList extends Component {
                                     
                                             <Col xs={5} md={2} lg={2} className="" key={x.id} >
                                                 <div style={{background: "#3A3A3A", height: 240, width: 175, marginTop: 15}} className="rounded text-center pt-2 px-2"> 
-                                                        <Button onClick={this.props.login} style={{background: "#3A3A3A", borderColor: '#3A3A3A', paddingRight: '10'}}>
-                                                            <Image src={`http://localhost:5000/public/${x.thumbnail}`} style={setGambar} key={x.id} />
-                                                        </Button>
+                                                        {   
+                                                            subscribePending ?
+                                                            (<Button onClick={this.props.subscribes} style={{background: "#3A3A3A", borderColor: '#3A3A3A', paddingRight: '10'}}>
+                                                                <Image src={`http://localhost:5000/public/${x.thumbnail}`} style={setGambar} key={x.id} />
+                                                            </Button>):
+                                                            (<Button onClick={this.props.login} style={{background: "#3A3A3A", borderColor: '#3A3A3A', paddingRight: '10'}}>
+                                                                <Image src={`http://localhost:5000/public/${x.thumbnail}`} style={setGambar} key={x.id} />
+                                                            </Button>)
+                                                        }
                                                     <div className="pt-1">
                                                         <div className="d-inline-flex">
                                                             <p className="text-white text-font-weight-bold text-left" style={{overflow: "hidden", width: 111, fontSize: 14}}>

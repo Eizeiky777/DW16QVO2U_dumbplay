@@ -28,12 +28,14 @@ export const updateTransactionUser = (status, ids) => {
                 },
             };
             
-            const {
-            data: { data: dataUser },
-            } = await API.patch(`/transaction/edit/${ids}`, formData, config);
+            await API.patch(`/transaction/edit/${ids}`, formData, config);
                 
-            
-            return dataUser;
+            const {
+                data: { data: dataNew },
+                } = await API.get('/transactions');
+
+            console.log(dataNew);
+            return dataNew;
         } catch (error) {
             if (error.response) {
             const { data, status } = error.response;

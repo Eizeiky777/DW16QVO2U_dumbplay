@@ -12,7 +12,10 @@ class ListTransactions extends Component {
 
     componentDidMount() {
         this.props.checkTransaction()
-        
+    }
+
+    componentWillUnmount(){
+        console.log('test');
     }
 
     handleChange = async (event, ids) => {
@@ -39,9 +42,12 @@ class ListTransactions extends Component {
         let UPDATED = Object.values(updateTransactions);
         // const list = films.map((movie) => <MovieCard movie={movie} key={movie.id} />);
         
-        const maps = UPDATED.map((e) => e);
-        console.log(UPDATED);
-        //console.log(maps[5]);
+        if ( UPDATED.length !== 0 ) LIST = UPDATED;
+        
+        // console.log(LIST, 'new')
+        // const maps = UPDATED.map((e) => e);
+        // console.log(updateTransactions);
+        // console.log(listTransactions);
 
         let color_second = '#2B2B2B';
         let color_third = '#1F1F1F';
@@ -86,7 +92,7 @@ class ListTransactions extends Component {
                 </Row>
                 {
                 LIST.map( customer => { 
-                    let statusX = customer.User.subscribe;
+                    // let statusX = customer.User.subscribe;
                     // let STATUS_PAYMENT = customer.status;
 
                     // console.log(STATUS_PAYMENT)
@@ -104,22 +110,22 @@ class ListTransactions extends Component {
                         color = '#0ACF83';
                     }
                     
-                    if ( maps[5] !== undefined && statusX !== null) {
-                        if( ( maps[5].subscribe === true && maps[5].id === customer.id )  ){
-                            // console.log(maps[5].id, 'hello broeks')
-                            statusX = true;
-                            statusPayment = 'Approved';
-                            stat = 'Active'
-                            color = '#0ACF83';
-                        }
-                    }
+                    // if ( maps[5] !== undefined && statusX !== null) {
+                    //     if( ( maps[5].subscribe === true && maps[5].id === customer.id )  ){
+                    //         // console.log(maps[5].id, 'hello broeks')
+                    //         statusX = true;
+                    //         statusPayment = 'Approved';
+                    //         stat = 'Active'
+                    //         color = '#0ACF83';
+                    //     }
+                    // }
 
-                    if( maps[4] === 'cancel' && maps[5].id === customer.id  ){
-                        statusX = true;
-                        statusPayment = 'Cancel';
-                        stat = 'Not Active'
-                        color = '#FF0742'; 
-                    }
+                    // if( maps[4] === 'cancel' && maps[5].id === customer.id  ){
+                    //     statusX = true;
+                    //     statusPayment = 'Cancel';
+                    //     stat = 'Not Active'
+                    //     color = '#FF0742'; 
+                    // }
 
                     
                     // let stat_payment = 'Pending';

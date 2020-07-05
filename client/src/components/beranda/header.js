@@ -291,7 +291,8 @@ class Header extends Component {
 
             <App 
                 open={open}  
-                login={() => this.setState({modalShow:true})}                  
+                login={() => this.setState({modalShow:true})}  
+                subscribe={statusLogger}                
             />
             
 
