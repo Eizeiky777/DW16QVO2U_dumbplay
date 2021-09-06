@@ -20,6 +20,7 @@ app.use('/public', express.static('public/img'));
 
 app.use("/api/v1", router);
 // app.use('/static', express.static(path.join(__dirname,'public')));
+// test git dot
 
 
 app.listen(port, () =>
